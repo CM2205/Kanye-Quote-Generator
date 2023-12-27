@@ -26,7 +26,7 @@ while (True):
     print("enter [g] to generate")
     print("enter [q] to quit")
     userInput = input()
-    print()
+    # print()
     if (userInput == "q"):
 
         break
@@ -34,7 +34,13 @@ while (True):
         print(); 
         print("invalid input")
         continue
+    print("Getting quote...")
     response = requests.get(APIURL)
+
+    if (response.status_code != 200): 
+        print(bcolors.FAIL + "Error gettting quote. Please check connection and try again.")
+        print(response.status_code)
+        continue
     response = response.json()
 
     print(bcolors.WARNING + "\"" + response['quote'] + "\"")
